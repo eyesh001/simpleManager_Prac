@@ -1,0 +1,12 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": "auth != null",
+    "product":{
+      ".indexOn": ["no", "status", "catNo"]
+    },
+    "category": {
+      ".indexOn": ["no", "isUse"]
+    }
+  }
+}
