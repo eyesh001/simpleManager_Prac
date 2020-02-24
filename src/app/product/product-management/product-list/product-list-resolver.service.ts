@@ -20,7 +20,7 @@ export class ProductListResolverService {
     .pipe(
       switchMap(cnt => this.database.findList$ByPage<Product>('product', 1, this.pageSize, cnt))
       , take(1)
-      , map(actions => actions.map(action => action.payload.val()))
+      , map((actions:any) => actions.map(action => action.payload.val()))
       , tap((list: Products) => list.sort((p1, p2) => p2.no - p1.no))
     );
   }
