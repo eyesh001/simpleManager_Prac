@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Product, ProdStatus } from "../product.model";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Categories } from "../../category/category.model";
-import { FormGroup, Validators, FormBuilder } from "@angular/forms";
-import { ActionMode, ScmSharedUtil } from "../../shared/scm-shared-util";
-import { DataStoreService } from "../../shared/data-store.service";
+import { ActivatedRoute, Router } from '@angular/router';
+import { Categories } from '../../category/category.model';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { ActionMode, ScmSharedUtil } from '../../shared/scm-shared-util';
+import { DataStoreService } from '../../shared/data-store.service';
 import { filter, tap, switchMap, map } from 'rxjs/operators';
 import { NumberRangeValidator } from 'src/app/shared/custom-validator';
 

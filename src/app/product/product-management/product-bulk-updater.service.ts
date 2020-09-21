@@ -13,7 +13,7 @@ export declare type UpdateResult = [boolean, number];
 })
 export class ProductBulkUpdaterService {
 
-  constructor(private database: DataStoreService, private prodSet: CheckedProductSetService) { }
+  constructor(private database: DataStoreService, private prodSet: CheckedProductSetService) {}
 
   updateProductsToSell() {
     return this.updateStatus(ProdStatus.ON_SALE);
@@ -35,7 +35,7 @@ export class ProductBulkUpdaterService {
     const update$ = this.prodSet.nos$().pipe(
         mergeMap(no => this.database.findObject$<Product>('product', no).snapshotChanges().pipe(take(1)))
         , map(action  => {
-        if(action.payload.val()) return action.payload.val();
+        if (action.payload.val()) { return action.payload.val(); }
         throw new Error('failed to fetch value');
       })
       , tap(updateFn)
@@ -48,10 +48,9 @@ export class ProductBulkUpdaterService {
   }
 
   private handleBulkUpdate$(update$: Observable<any>) {
-    //return update$.pipe(reduce((acc, r: UpdateResult) => {
     return update$.pipe(reduce((acc, r) => {
       if (r[0]) {
-        acc.success.push(r[1])
+        acc.success.push(r[1]);
       } else {
         acc.fail.push(r[1]);
       }

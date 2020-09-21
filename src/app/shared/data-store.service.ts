@@ -31,6 +31,7 @@ export class DataStoreService {
 
   findList$ByPage<T>(domain: ScmDomain, pageNo, pageSize, totalCnt) {
     const offset = totalCnt - pageSize * (pageNo - 1);
+    console.log(offset);
     return this.db.list<T>(`/${domain}`, ref => ref.orderByChild('no').endAt(offset).limitToLast(pageSize)).snapshotChanges();
   }
 

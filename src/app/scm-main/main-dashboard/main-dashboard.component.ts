@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataStoreService } from 'src/app/shared/data-store.service';
 import { map, tap, mergeMap, filter, take } from 'rxjs/operators';
-import { ProdStatus } from 'src/app/product/product.model';
+import { ProdStatus, Products, Product } from 'src/app/product/product.model';
 import { from, zip } from 'rxjs';
 import { Category } from 'src/app/category/category.model';
 import { SpinnerService } from 'src/app/shared/loading-spinner/spinner.service';
@@ -21,6 +21,7 @@ export class MainDashboardComponent  implements OnInit {
   fetchPieChartData = false;
   pieData: number[];
   pieChartLabels: string[];
+  test: string[]
 
   constructor(private database: DataStoreService, private spinner: SpinnerService) {
     this.barData = [];
@@ -30,7 +31,7 @@ export class MainDashboardComponent  implements OnInit {
 
   ngOnInit() {
     this.makeBarChart();
-    //this.makePieChart();
+    this.makePieChart();
   }
 
   private makeBarChart() {
@@ -67,27 +68,27 @@ export class MainDashboardComponent  implements OnInit {
     this.barChartOptions = { scales: { xAxes: [{ ticks: { max: maxNum, min: 0, stepSize: 1 } }] } };
   }
 
-  // private makePieChart() {
-  //   this.spinner.start();
-  //   this.database.findList$<Category>('category')
-  //     .snapshotChanges()
-  //     .pipe(take(1)
-  //     , mergeMap(actions =>  from(actions).pipe(map(action => action.payload.val()))
-  //     )
-  //     , filter(cat => cat.isUse)
-  //     , mergeMap(cat =>
-  //       this.database.findList$ByQuery('product', 'catNo', cat.no.toString())
-  //         .snapshotChanges().pipe(
-  //         take(1)
-  //         , map(products => [cat, products.length]))
-  //     )
-  //     , tap(result => {
-  //       this.pieData.push(result[1]);
-  //       this.pieChartLabels.push(result[0].name);
-  //     }))
-  //     .subscribe(null, null, () => {
-  //       this.spinner.stop();
-  //       this.fetchPieChartData = true;
-  //     });
-  // }
+  private makePieChart() {
+    this.spinner.start();
+    this.database.findList$<Category>('category')
+      .snapshotChanges()
+      .pipe(take(1)
+      , mergeMap(actions =>  from(actions).pipe(map(action => action.payload.val()))
+      )
+      , filter(cat => cat.isUse)
+      , mergeMap(cat =>
+        this.database.findList$ByQuery('product', 'catNo', cat.no.toString())
+          .snapshotChanges().pipe(
+          take(1)
+          , map(products => [cat, products.length]))
+      )
+      , tap(result => {
+        this.pieData.push(Number(result[1]));
+        this.pieChartLabels.push(result[0]['name']);
+      }))
+      .subscribe(null, null, () => {
+        this.spinner.stop();
+        this.fetchPieChartData = true;
+      });
+  }
 }

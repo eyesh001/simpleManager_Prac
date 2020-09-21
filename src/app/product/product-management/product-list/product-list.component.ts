@@ -4,7 +4,7 @@ import { ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { DataStoreService } from 'src/app/shared/data-store.service';
 import { PROD_LIST_PAGE_SIZE } from '../../products.tokens';
 import { filter, tap, switchMap, map } from 'rxjs/operators';
-import { Observable, range } from "rxjs";
+import { Observable, range } from 'rxjs';
 import { CheckedProductSetService } from '../checked-product-set.service';
 
 @Component({
@@ -51,8 +51,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   toggleAllItem() {
     if (this.isCheckedAnyOne()) {
       this.prodSet.initProdNos();
-    }
-    else {
+    } else {
       this.products.map(p => p.no)
         .forEach(no => this.prodSet.addNo(no));
     }
@@ -65,8 +64,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
     if (this.checkedStatus[idx]) {
       this.prodSet.addNo(no);
-    }
-    else {
+    } else {
       this.prodSet.removeNo(no);
     }
   }

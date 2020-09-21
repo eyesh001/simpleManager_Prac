@@ -15,7 +15,6 @@ import { CategoryDetailComponent } from './category/category-detail/category-det
 
 
 const routes: Routes = [
-  // { path: 'product-list', component: ProductManagementComponent },
   {
     path: 'product-list', children: [
       {
@@ -43,7 +42,6 @@ const routes: Routes = [
   { path: '', redirectTo: 'total-summary', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
-
 
 
 @NgModule({

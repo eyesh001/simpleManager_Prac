@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from "@angular/router";
-import { Product, ProdStatus } from "../product.model";
-import { DataStoreService } from "../../shared/data-store.service";
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { Product, ProdStatus } from '../product.model';
+import { DataStoreService } from '../../shared/data-store.service';
 import * as firebase from 'firebase/app';
 import { take, map } from 'rxjs/operators';
 import { Observable, zip } from 'rxjs';
